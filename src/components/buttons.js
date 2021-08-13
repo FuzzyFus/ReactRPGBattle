@@ -95,13 +95,6 @@ class UtilityMenu extends Component {
                     >
                     Mana Stim [75HP]
                 </button>
-                <button id="u2Button"
-                    type="button" 
-                    disabled={(this.props.playerMana < 40) || this.props.gameFinished}
-                    onClick={() => this.props.makeGameMove(6)}
-                    >
-                    Health Stim [40MP]
-                </button>
             </div>
         );
     }

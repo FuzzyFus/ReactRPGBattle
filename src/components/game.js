@@ -67,7 +67,7 @@ export class GameCore extends Component {
     enemyMove(){
         //variables to change for the setState
         let phVar = this.state.playerHealth;
-
+        
         let rng = Math.floor(Math.random() * 3)
         switch(rng){
             case 0: //nothing
@@ -153,11 +153,6 @@ export class GameCore extends Component {
                     phVar -= 75;
                     this.setState({playerMana: this.state.playerMana + 30});
                     this.setState({lastUserMove:"uUtil2"})
-                break;
-            case 6: // health stim, takes 40mp for 75hp
-                    this.setState({playerMana: this.state.playerMana - 40});
-                    phVar += 75;
-                    this.setState({lastUserMove:"uUtil3"})
                 break;
 
             default:
@@ -250,7 +245,7 @@ function getResponse(action) {
         case "uUtil2": //mana stim
             output = "You stab a syringe in your arm full of blue liquid. Probably dangerous, but meh. It's mana. [-75HP, +30 MANA]"
             break;
-        case "uUtil3": //health stim
+        case "uUtil3": //health stim (ditched but might return to it)
             output = "You stab a syringe in your arm full of red liquid. You start feeling better, even if your right tricep starts twitching. [+75HP, -40 MANA]"
             break;
 
