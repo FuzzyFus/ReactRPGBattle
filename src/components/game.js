@@ -98,11 +98,11 @@ export class GameCore extends Component {
         // add 10 mp per move by default
         this.setState({playerMana: this.state.playerMana + 10});
         //remember rng starts at 0!
+        //also playerMana uses its own setState so it can replace the default (gaining 10 mana)
         
         //variables to change for the setState
         let phVar = this.state.playerHealth;
         let ehVar = this.state.enemyHealth;
-        let pmVar = this.state.playerMana;
 
         switch(input){
             //attacks
@@ -113,7 +113,7 @@ export class GameCore extends Component {
                 break;
             case 2: //buster sword
             {
-                pmVar -= 30;
+                this.setState({playerMana: this.state.playerMana - 30});
                 let rng = Math.floor(Math.random() * 5 * this.state.luckMultiplier);
                 if (rng >= 4){ // 1/5 chance normally
                     ehVar -= 150;
@@ -128,7 +128,7 @@ export class GameCore extends Component {
             }   
             case 3: //fisticuffs
             {
-                pmVar -= 15;
+                this.setState({playerMana: this.state.playerMana - 15});
                 let rng = Math.floor(Math.random() * 10 * this.state.luckMultiplier);
                 if (rng >= 9){ // 1/10 chance normally
                     ehVar -= 500;
@@ -145,17 +145,17 @@ export class GameCore extends Component {
             //utility
 
             case 4: // knuckle cracker, adds 1 to the luck multipler
-                    pmVar -= 30;
+                    this.setState({playerMana: this.state.playerMana - 30});
                     this.setState({luckMultiplier: this.state.luckMultiplier + 1});
                     this.setState({lastUserMove:"uUtil1"})
                 break;
             case 5: // mana stim, takes 75hp for 15mp
                     phVar -= 75;
-                    pmVar += 30;
+                    this.setState({playerMana: this.state.playerMana + 30});
                     this.setState({lastUserMove:"uUtil2"})
                 break;
             case 6: // health stim, takes 40mp for 75hp
-                    pmVar -= 40;
+                    this.setState({playerMana: this.state.playerMana - 40});
                     phVar += 75;
                     this.setState({lastUserMove:"uUtil3"})
                 break;
@@ -166,7 +166,6 @@ export class GameCore extends Component {
 
         this.setState({
                         playerHealth: phVar,
-                        playerMana: pmVar,
                         enemyHealth: ehVar }, () => { this.deadCheck() });
     }
 
